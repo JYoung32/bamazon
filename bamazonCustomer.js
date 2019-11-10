@@ -50,7 +50,6 @@ function pickProduct() {
 
             connection.query(queryProducts, {item_id: product}, function(err, response) {
                 if (err) throw err;
-                console.log(response[0]);
 
                 if (quantity > response[0].stock_quantity) {
                     console.log(`Sorry, we do not have enough in stock to fulfill your order.`);
@@ -68,7 +67,7 @@ The total cost of your order will be: $${totalCost} \n
 
             connection.query(updateProducts, [ {stock_quantity: updateQty},{item_id: product} ], function(err, response){
                 if (err) throw err;
-                console.log(`The Inventory has been updated after your most recent purchase.`);
+                console.log(`The Inventory has been updated after your most recent purchase. \n`);
                 inquirer
                 .prompt({
                     name: "continue",
