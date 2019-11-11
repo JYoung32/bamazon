@@ -71,11 +71,12 @@ The total cost of your order will be: $${totalCost} \n
                 inquirer
                 .prompt({
                     name: "continue",
-                    type: "input",
-                    message: "Would you like to place another order?"
+                    type: "list",
+                    message: "Would you like to place another order?",
+                    choices: ["Yes", "No"]
                 })
                 .then(function(answer){
-                    if (answer.continue.toLowerCase() === "yes"){
+                    if (answer.continue === "Yes"){
                         displayStock();
                     } else {    
                     connection.end();

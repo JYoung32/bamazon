@@ -49,7 +49,20 @@ function displayStock() {
     connection.query(selectProducts, function (err, response) {
         if (err) throw err;
         console.table(response);
-        connection.end();
+        inquirer
+            .prompt({
+                name: "continue",
+                type: "list",
+                message: "Would you like to continue?",
+                choices: ["Yes", "No"]
+            })
+            .then(function (answer) {
+                if (answer.continue === "Yes") {
+                    start();
+                } else {
+                    connection.end();
+                }
+            });
     });
 }
 
@@ -58,7 +71,20 @@ function displayLow() {
     connection.query(selectLowProducts, function (err, response) {
         if (err) throw err;
         console.table(response);
-        connection.end();
+        inquirer
+            .prompt({
+                name: "continue",
+                type: "list",
+                message: "Would you like to continue?",
+                choices: ["Yes", "No"]
+            })
+            .then(function (answer) {
+                if (answer.continue === "Yes") {
+                    start();
+                } else {
+                    connection.end();
+                }
+            });
     })
 }
 
@@ -98,7 +124,20 @@ function addProductQty() {
                         connection.query(selectID, [{ item_id: choice }], function (err, response) {
                             if (err) throw err;
                             console.table(response);
-                            connection.end();
+                            inquirer
+                            .prompt({
+                                name: "continue",
+                                type: "list",
+                                message: "Would you like to continue?",
+                                choices: ["Yes", "No"]
+                            })
+                            .then(function (answer) {
+                                if (answer.continue === "Yes") {
+                                    start();
+                                } else {
+                                    connection.end();
+                                }
+                            });
                         })
                     })
                 })
@@ -129,17 +168,30 @@ function addProduct() {
                 type: "input",
                 message: "How much of this item are you adding to the inventory?"
             }
-        ]).then(function(answer){
+        ]).then(function (answer) {
             var product = answer.productName;
             var department = answer.departmentName;
             var price = answer.productPrice;
             var quantity = answer.productQty;
 
             var addProductInv = "INSERT INTO products (product_name, department_name, price, stock_quantity) VALUES (?, ?, ?, ?)";
-            connection.query(addProductInv, [product, department, price, quantity], function(err, response){
+            connection.query(addProductInv, [product, department, price, quantity], function (err, response) {
                 if (err) throw err;
                 console.log(`Success! ${product} has been added to the inventory list!`);
-                connection.end();
+                inquirer
+                .prompt({
+                    name: "continue",
+                    type: "list",
+                    message: "Would you like to continue?",
+                    choices: ["Yes", "No"]
+                })
+                .then(function (answer) {
+                    if (answer.continue === "Yes") {
+                    start();
+                    } else {
+                    connection.end();
+                    }
+                });
             })
         })
 }
