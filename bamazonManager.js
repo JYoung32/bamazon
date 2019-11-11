@@ -21,19 +21,21 @@ function start() {
     .prompt({
         name: "managerAction",
         type: "list",
-        message: "Would you like to [view products] for sale, [view low] Inventory, [add] to Inventory, [add new] Product?",
-        choices: ["view products", "view low", "add", "add new"]
-    }).then(function(answer){
+        message: "Would you like to view products for sale, view low inventory, add to Inventory, or add a new product?",
+        choices: ["View Inventory", "View Low Inventory", "Add Product Quantity", "Add a New Product"]
+    })
+    .then(function(answer){
         switch(answer.managerAction) {
-            case "view products":
+            case "View Inventory":
                 displayStock();
                 break;
-            case "view low":
+            case "View Low Inventory":
                 displayLow();
                 break;
-            case "add":
+            case "Add Product Quantity":
+                addProductQty();
                 break;
-            case "add new":
+            case "Add a New Product":
                 break;
             default:
                 connection.end();
@@ -57,4 +59,41 @@ function displayLow() {
         console.table(response);
         connection.end();
     })
+}
+
+function addProductQty() {
+    inquirer
+    .prompt([
+        {
+        name: "choice",
+        type: "input",
+        message: "What is the ID of the item you would like to update?"
+        },
+        {
+        name: "quantity",
+        type: "input",
+        message: "How much of this item would you like to add to the inventory?"
+        }
+    ]).then(function(answer){
+        var choice = answer.choice;
+        var quantity = answer.quantity;
+        var updateQty;
+
+        var selectID = `SELECT * FROM products WHERE ?`;
+        connection.query(selectID, [{item_id: choice}], function(err, response){
+            if (err) throw err;
+            updateQty = (response[0].stock_quantity + parseInt(quantity));
+
+            var updateProducts = `UPDATE products SET stock_quantity = ? WHERE item_id = ?`;
+            connection.query(updateProducts, [updateQty, choice], function(err, response){
+                if (err) throw err;
+                console.log(`The inventory has been updated`);
+                connection.end();
+            })
+        })
+    })
+}
+
+function addProduct(){
+    
 }
