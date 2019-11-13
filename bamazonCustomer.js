@@ -53,16 +53,31 @@ function pickProduct() {
 
                 if (quantity > response[0].stock_quantity) {
                     console.log(`Sorry, we do not have enough in stock to fulfill your order.`);
-                } 
-                else {
+
+                    inquirer
+                .prompt({
+                    name: "continue",
+                    type: "list",
+                    message: "Would you like to place another order?",
+                    choices: ["Yes", "No"]
+                })
+                .then(function(answer){
+                    if (answer.continue === "Yes"){
+                        displayStock();
+                    } else {    
+                    connection.end();
+                    }
+                });
+
+                } else {
+                    
                     totalCost = quantity * response[0].price;
                     updateQty = response[0].stock_quantity - quantity;
                     console.log(`========\n
 You would like to purchase ${quantity} units of "${response[0].product_name}". \n
 The total cost of your order will be: $${totalCost} \n
 ========\n`);
-                }
-
+                
             var updateProducts = "UPDATE products SET ? WHERE ?";
 
             connection.query(updateProducts, [ {stock_quantity: updateQty},{item_id: product} ], function(err, response){
@@ -83,6 +98,8 @@ The total cost of your order will be: $${totalCost} \n
                     }
                 });
             })
+
+            };
         })
     })
 }  
