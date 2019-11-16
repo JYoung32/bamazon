@@ -13,6 +13,10 @@ This module will also update the database to show that you have purchased the qu
 To run this application in the terminal:
 `node bamazonCustomer.js`
 
+Example:
+[bamazon-customer-example](/assets/images/bamazonCustomerExample.png)
+
+
 ## Bamazon Manager Module
 If you would like access Bamazon as a manager, run the manager application.
 
@@ -26,6 +30,10 @@ When you access the add a new product function, bamazon will then prompt you to 
 
 To run the manager application for bamazon in the terminal:
 `node bamazonManager.js`
+
+Example:
+[bamazon-manager-example1](/assets/images/bamazonManagerExample1.png)
+[bamazon-manager-example2](/assets/images/bamazonManagerExample2.png)
 
 ### Technologies Used
 
