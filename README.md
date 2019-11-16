@@ -14,7 +14,7 @@ To run this application in the terminal:
 `node bamazonCustomer.js`
 
 Example:
-[bamazon-customer-example](/assets/images/bamazonCustomerExample.png)
+![bamazon-customer-example](/assets/images/bamazonCustomerExample.png)
 
 
 ## Bamazon Manager Module
@@ -32,8 +32,8 @@ To run the manager application for bamazon in the terminal:
 `node bamazonManager.js`
 
 Example:
-[bamazon-manager-example1](/assets/images/bamazonManagerExample1.png)
-[bamazon-manager-example2](/assets/images/bamazonManagerExample2.png)
+![bamazon-manager-example1](/assets/images/bamazonManagerExample1.png)
+![bamazon-manager-example2](/assets/images/bamazonManagerExample2.png)
 
 ### Technologies Used
 
